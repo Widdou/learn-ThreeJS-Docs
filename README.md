@@ -1,0 +1,15 @@
+# ThreeJS Tutorial Documentation Sandbox
+
+### Improved auto-completion with JSConfig
+
+```JSON
+{
+  "compilerOptions": {
+    // other options...
+    "paths": {
+      "three/webgpu": ["node_modules/three/build/three.webgpu.js"],
+      "three/tsl": ["node_modules/three/build/three.tsl.js"],
+    },
+  }
+}
+```
