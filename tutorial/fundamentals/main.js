@@ -42,21 +42,46 @@ function main() {
 	 const material = new THREE.MeshPhongMaterial({color: 0xFF0000});
 
 	// Create a cube mesh, from the Geometry + Material
-	const cube = new THREE.Mesh(geometry, material);
+	// const cube = new THREE.Mesh(geometry, material);
 
 	// Add the cube to the scene
-	scene.add(cube);
+	// scene.add(cube);
 
 	// Pass the Scene and Camera to the Renderer
 	// renderer.render(scene, camera)
+
+	function makeInstance(geometry, color, x) {
+		const material = new THREE.MeshPhongMaterial({color});
+		const cube = new THREE.Mesh(geometry, material);
+
+		cube.position.x = x;
+
+		scene.add(cube);
+
+		return cube;
+	}
+
+	const cubes = [
+		makeInstance(geometry, 0xFF0000, -2),	// RED
+		makeInstance(geometry, 0x00FF00, 0),	// GREEN
+		makeInstance(geometry, 0x0000FF, 2),	// BLUE
+	]
 	
 
 	// Render function with cube rotation
 	function render(time) {
 		time *= 0.001; // Time is in seconds, therefore it's miliseconds
 	
+		// cube.rotation.x = time;
+		// cube.rotation.y = time;
+
+		cubes.forEach((cube, i) => {
+			const speed = 1+i * .1;
+			const rot = time * speed;
+			
 		cube.rotation.x = time;
 		cube.rotation.y = time;
+		})
 
 		renderer.render(scene, camera);
 
@@ -65,7 +90,6 @@ function main() {
 	}
 	// requestAnimationFrame(render);
 	render();
-
 
 
 }
