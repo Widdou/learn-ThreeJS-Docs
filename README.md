@@ -24,10 +24,19 @@ Materials:
 
 Camera settings:
 
--  FOV
--  Aspect
+-  FOV - Field of View
+-  Aspect =
 -  Near & Far
 
 These four settings define a `frustum`
 
 ``
+
+`Lights`
+Settings:
+
+-  `color`: Hue of the light
+-  `intensity`: Strength of the light
+-  `position` => light.position.set(x,y,z)
+
+> Basic materials (`THREE.MeshBasicMaterial`) are not affected by light, so it's required to use at least one like `THREE.MeshPhongMaterial` because it has some shininess.

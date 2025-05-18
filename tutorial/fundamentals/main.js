@@ -22,6 +22,15 @@ function main() {
 	// Create a Scene
 	const scene = new THREE.Scene();
 
+	// Create a Light
+	{
+		const color =  0xFFFFFF;
+		const intensity = 3;
+		const light = new THREE.DirectionalLight(color, intensity);
+		light.position.set(-1, 2, 4);
+		scene.add(light);
+	}
+
 	// Create a BoxGeometry
 	const boxWidth = 1;
 	const boxHeight = 1;
@@ -29,7 +38,8 @@ function main() {
 	const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
 	// Create a Material
-	const material = new THREE.MeshBasicMaterial({color: 0x0000FF});
+	// const material = new THREE.MeshBasicMaterial({color: 0x0000FF});	// This material is not affected by light
+	 const material = new THREE.MeshPhongMaterial({color: 0xFF0000});
 
 	// Create a cube mesh, from the Geometry + Material
 	const cube = new THREE.Mesh(geometry, material);
@@ -38,8 +48,28 @@ function main() {
 	scene.add(cube);
 
 	// Pass the Scene and Camera to the Renderer
-	renderer.render(scene, camera)
+	// renderer.render(scene, camera)
+	
+
+	// Render function with cube rotation
+	function render(time) {
+		time *= 0.001; // Time is in seconds, therefore it's miliseconds
+	
+		cube.rotation.x = time;
+		cube.rotation.y = time;
+
+		renderer.render(scene, camera);
+
+		// This creates a loop
+		requestAnimationFrame(render);
+	}
+	// requestAnimationFrame(render);
+	render();
+
+
+
 }
+
 
 main();
 
