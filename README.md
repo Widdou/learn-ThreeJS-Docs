@@ -40,3 +40,53 @@ Settings:
 -  `position` => light.position.set(x,y,z)
 
 > Basic materials (`THREE.MeshBasicMaterial`) are not affected by light, so it's required to use at least one like `THREE.MeshPhongMaterial` because it has some shininess.
+
+### Responsive Design
+
+To allow the `renderer` to
+
+Then if the canvas size is controlled by CSS the rendering will be taken care by the canvas size logic.
+
+#### Set the Camera's Aspect Ratio to the client's window size
+
+```JS
+			camera.aspect = canvas.clientWidth / canvas.clientHeight;
+			camera.updateProjectionMatrix();	// Must be called after any change of parameters.
+```
+
+```CSS
+html, body {
+   margin: 0;
+   height: 100%;
+}
+#canvas {
+   width: 100%;
+   height: 100%;
+   display: block;
+}
+```
+
+Whenever a frame is requested we can check if the canvas sized was modified with this logic:
+
+```JS
+function render() {
+	...
+	if (resizeRendererToDisplaySize(renderer)) {
+		const canvas = renderer.domElement;
+			camera.aspect = canvas.clientWidth / canvas.clientHeight;
+			camera.updateProjectionMatrix();
+		}
+	...
+}
+
+function resizeRendererToDisplaySize(renderer) {
+	const canvas = renderer.domElement;
+	const width = canvas.clientWidth;
+	const height = canvas.clientHeight;
+	const needResize = canvas.width !== width || canvas.height !== height;
+	if (needResize) {
+		renderer.setSize(width, height, false);
+	}
+	return needResize;
+}
+```
