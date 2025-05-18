@@ -85,8 +85,8 @@ function main() {
 			const speed = 1+i * .1;
 			const rot = time * speed;
 			
-		cube.rotation.x = time;
-		cube.rotation.y = time;
+			cube.rotation.x = time;
+			cube.rotation.y = time;
 		})
 
 		renderer.render(scene, camera);

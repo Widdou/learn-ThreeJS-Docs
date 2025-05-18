@@ -5,6 +5,20 @@ Materials:
 -  https://discoverthreejs.com/
 -
 
+## Setup flow:
+
+1. Find the DOM canvas and assign a `THREE.renderer`
+2. Create a camera
+
+   -  Define settings (FOV, Aspect, Near/Far)
+   -  Adjust position
+
+3. Create a scene
+
+-  Set the Lights, Meshes, etc
+
+4. Render
+
 ### Improved auto-completion with JSConfig
 
 ```JSON
@@ -50,9 +64,11 @@ Then if the canvas size is controlled by CSS the rendering will be taken care by
 #### Set the Camera's Aspect Ratio to the client's window size
 
 ```JS
-			camera.aspect = canvas.clientWidth / canvas.clientHeight;
-			camera.updateProjectionMatrix();	// Must be called after any change of parameters.
+camera.aspect = canvas.clientWidth / canvas.clientHeight;
+camera.updateProjectionMatrix();	// Must be called after any change of parameters.
 ```
+
+With this CSS configuration, a canvas could ocuppy the entirity of the viewport:
 
 ```CSS
 html, body {
@@ -73,9 +89,9 @@ function render() {
 	...
 	if (resizeRendererToDisplaySize(renderer)) {
 		const canvas = renderer.domElement;
-			camera.aspect = canvas.clientWidth / canvas.clientHeight;
-			camera.updateProjectionMatrix();
-		}
+		camera.aspect = canvas.clientWidth / canvas.clientHeight;
+		camera.updateProjectionMatrix();
+	}
 	...
 }
 
@@ -90,3 +106,8 @@ function resizeRendererToDisplaySize(renderer) {
 	return needResize;
 }
 ```
+
+## [AxesHelper](https://threejs.org/docs/#api/en/helpers/AxesHelper)
+
+An axis object to visualize the 3 axes in a simple way.
+The X axis is red. The Y axis is green. The Z axis is blue.
