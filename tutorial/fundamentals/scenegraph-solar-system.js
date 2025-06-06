@@ -1,9 +1,11 @@
 import * as THREE from 'three';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 function main() {
 
 	const canvas = document.querySelector('#c');
 	const renderer = new THREE.WebGLRenderer({antialias: true, canvas});
+	const gui = new GUI();
 		
 	// Create a PerspectiveCamera
 	const fov = 40;
@@ -68,18 +70,62 @@ function main() {
 		
 		const moonMaterial = new THREE.MeshPhongMaterial({color: 0x888888, emissive: 0x222222});
 		const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
-		// moonMesh.position.x = 5;
 		moonMesh.scale.set(.4,.4,.4)
 
 		moonOrbit.add(moonMesh)
 
-		function sleep(ms) {
-		return new Promise(resolve => setTimeout(resolve, ms));
+
+	// Turns both axes and grid visible on/off
+	// GUI requires a property that returns a bool
+	// to decide to make a checkbox so we make a setter
+	// can getter for `visible` which we can tell GUI to look at.
+	class AxisGridHelper {
+
+		constructor( node, units = 10 ) {
+
+			const axes = new THREE.AxesHelper();
+			axes.material.depthTest = false;
+			axes.renderOrder = 2; // after the grid
+			node.add( axes );
+
+			const grid = new THREE.GridHelper( units, units );
+			grid.material.depthTest = false;
+			grid.renderOrder = 1;
+			node.add( grid );
+
+			this.grid = grid;
+			this.axes = axes;
+			this.visible = false;
+		}
+
+		get visible() {
+			return this._visible;
+		}
+
+		set visible( v ) {
+			this._visible = v;
+			this.grid.visible = v;
+			this.axes.visible = v;
+		}
 	}
+
+	function makeAxisGrid( node, label, units ) {
+		const helper = new AxisGridHelper( node, units );
+		gui.add( helper, 'visible' ).name( label );
+	}
+
+	makeAxisGrid( solarSystem, 'solarSystem', 25);
+	makeAxisGrid( sunMesh, 'sunMesh');
+	makeAxisGrid( earthOrbit, 'earthOrbit' );
+	makeAxisGrid( earthMesh, 'earthMesh' );
+	makeAxisGrid( moonOrbit, 'moonOrbit' );
+	makeAxisGrid( moonMesh, 'moonMesh' );
+
 
 	// Rendering simulation
 	function render(time) {
-		time *= 0.001;
+		time *= 0.0005;
+		// console.log(time)
 
 		if ( resizeRendererToDisplaySize( renderer ) ) {
 			const canvas = renderer.domElement;
@@ -88,21 +134,23 @@ function main() {
 		}
 
 		objects.forEach((obj) => {
-			const axes = new THREE.AxesHelper();
-			axes.material.depthTest = false;
-			axes.renderOrder = 1;
-
-			obj.add(axes)
 			obj.rotation.y = time;
 		});
 
+		
 		renderer.render(scene,camera)
 		requestAnimationFrame(render)
+		
 	}
-
-	render();
+	
+	requestAnimationFrame(render)
 
 	// Utils
+
+	function makeAxisGrid(node, label, units) {
+		const helper = new AxisGridHelper(node, units);
+		gui.add(helper, 'visible').name(label);
+	}
 
 	function resizeRendererToDisplaySize( renderer ) {
 		const canvas = renderer.domElement;
