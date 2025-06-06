@@ -1,10 +1,11 @@
 {
   "name": "threejs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Tutorial Documentation Sandbox to learn ThreeJS",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx vite"
   },
   "author": "",
   "license": "ISC",

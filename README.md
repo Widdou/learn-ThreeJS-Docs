@@ -5,6 +5,18 @@ Materials:
 -  https://discoverthreejs.com/
 -
 
+## How to run:
+
+```bash
+npx vite
+```
+
+Will start the localhost server on port 5173
+From there you can easily consume any file in the project.
+
+Example:
+(Solar System Schenegraph)[http://localhost:5173/tutorial/fundamentals/scenegraph.html]
+
 ## Setup flow:
 
 1. Find the DOM canvas and assign a `THREE.renderer`
@@ -34,6 +46,10 @@ Materials:
 
 ## Concepts
 
+<details>
+
+<summary>Some concepts I learnt and detailed from following the tutorials</summary>
+
 `Camera`
 
 Camera settings:
@@ -54,6 +70,8 @@ Settings:
 -  `position` => light.position.set(x,y,z)
 
 > Basic materials (`THREE.MeshBasicMaterial`) are not affected by light, so it's required to use at least one like `THREE.MeshPhongMaterial` because it has some shininess.
+
+</details>
 
 ### Responsive Design
 
