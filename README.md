@@ -15,7 +15,7 @@ Will start the localhost server on port 5173
 From there you can easily consume any file in the project.
 
 Example:
-(Solar System Schenegraph)[http://localhost:5173/tutorial/fundamentals/scenegraph.html]
+[Solar System Schenegraph](http://localhost:5173/tutorial/fundamentals/scenegraph.html)
 
 ## Setup flow:
 
@@ -30,6 +30,7 @@ Example:
 -  Set the Lights, Meshes, etc
 
 4. Render
+   `renderer.render(scene,camera)`
 
 ### Improved auto-completion with JSConfig
 
